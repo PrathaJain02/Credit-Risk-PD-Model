@@ -4,14 +4,15 @@
 
 This project builds a **Probability of Default (PD) model** to estimate borrower credit risk using the **Home Credit Default Risk** dataset.
 
-The objective is to compare interpretable and performance-driven models to support credit decision-making and risk monitoring.
+The goal is to compare interpretable and performance-driven models and translate model outputs into business-friendly risk decisions.
 
 ---
 
 ## 📁 Dataset
 
 * Source: Home Credit Default Risk (Kaggle)
-* Total records: ~307K loans (sampled to 70K for modelling)
+* Total records: ~307K loan applications
+* Working sample: 70,000 observations
 * Target variable:
 
   * `TARGET = 1` → Default
@@ -23,33 +24,38 @@ The objective is to compare interpretable and performance-driven models to suppo
 
 ### 1️⃣ Data Preparation
 
-* Loaded retail loan-level data
-* Selected numeric features
-* Handled missing values using median imputation
-* Addressed class imbalance using class weights
+* Loaded loan-level retail credit data
+* Selected numeric features for modelling
+* Missing value handling using median imputation
+* Addressed class imbalance using class-weighted models
 
 ### 2️⃣ Models Built
 
-* **Logistic Regression**
+#### Logistic Regression (Interpretability Model)
 
-  * Used for interpretability
-  * Baseline credit risk model
+* Baseline credit risk model
+* Used for transparent and explainable risk assessment
 
-* **Random Forest**
+#### Random Forest (Performance Model)
 
-  * Used for predictive performance
-  * Captures non-linear relationships
+* Captures non-linear relationships
+* Used for stronger predictive ranking power
 
-### 3️⃣ Evaluation Metric
+---
 
-* ROC-AUC used due to imbalanced default distribution
+### 3️⃣ Model Evaluation
+
+* ROC-AUC used as primary metric due to imbalanced classes
 * Confusion matrix used for threshold analysis
+* Model comparison focused on ranking quality rather than accuracy
+
+---
 
 ### 4️⃣ Threshold Optimization
 
 * Probability threshold adjusted to **0.30**
-* Improved default capture while controlling false approvals
-* Demonstrates alignment with risk appetite
+* Increased default detection while controlling false approvals
+* Demonstrates risk appetite trade-off used in credit strategy
 
 ---
 
@@ -61,7 +67,7 @@ The objective is to compare interpretable and performance-driven models to suppo
 | Random Forest       | ~0.69   |
 
 **Key Insight:**
-Random Forest achieved stronger ranking power, making it more effective for identifying high-risk borrowers.
+Random Forest achieved stronger ranking power and better separation of high-risk borrowers.
 
 ---
 
@@ -72,8 +78,22 @@ Random Forest achieved stronger ranking power, making it more effective for iden
 * DAYS_BIRTH
 * DAYS_EMPLOYED
 * DAYS_LAST_PHONE_CHANGE
+* DAYS_REGISTRATION
+* DAYS_ID_PUBLISH
 
-These variables significantly influence borrower default risk.
+These variables were identified as strong drivers of borrower default risk.
+
+---
+
+## 🏦 Risk Bucket Segmentation
+
+Predicted probabilities were converted into business-friendly risk bands:
+
+* **Low Risk (PD < 10%)**
+* **Medium Risk (10% – 30%)**
+* **High Risk (PD > 30%)**
+
+Observed default rates increased consistently across buckets, demonstrating strong ranking capability of the model and enabling portfolio-level monitoring.
 
 ---
 
@@ -87,13 +107,18 @@ These variables significantly influence borrower default risk.
 
 ![Feature Importance](images/feature_importance.png)
 
+### Risk Bucket Analysis
+
+![Risk Buckets](images/risk_buckets.png)
+
 ---
 
 ## 💼 Business Interpretation
 
-* Logistic Regression provides interpretability for regulatory explanation.
-* Random Forest improves prediction strength for risk ranking.
-* Lower probability thresholds increase default detection but may raise false approvals, illustrating the trade-off between risk control and portfolio growth.
+* Logistic Regression supports explainability for regulatory and business stakeholders.
+* Random Forest improves predictive performance for borrower ranking.
+* Risk buckets translate model outputs into underwriting decisions.
+* Lower thresholds improve default capture but increase approval risk, highlighting the balance between growth and risk control.
 
 ---
 
@@ -102,17 +127,16 @@ These variables significantly influence borrower default risk.
 * Python
 * Pandas
 * NumPy
-* Scikit-Learn
+* Scikit-learn
 * Matplotlib
 
 ---
 
 ## 🚀 Key Learning Outcomes
 
-* Credit risk modelling workflow
+* End-to-end credit risk modelling workflow
 * Handling imbalanced datasets
 * Model comparison using ROC-AUC
 * Threshold tuning aligned with risk appetite
-* Feature importance analysis
-
----
+* Feature importance interpretation
+* Risk segmentation for portfolio monitoring
