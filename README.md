@@ -101,15 +101,15 @@ Observed default rates increased consistently across buckets, demonstrating stro
 
 ### ROC Curve
 
-![ROC Curve](images/roc_curve.png)
+![ROC Curve](roc_curve.png)
 
 ### Feature Importance
 
-![Feature Importance](images/feature_importance.png)
+![Feature Importance](feature_importance.png)
 
 ### Risk Bucket Analysis
 
-![Risk Buckets](images/risk_buckets.png)
+![Risk Buckets](risk_buckets.png)
 
 ---
 
